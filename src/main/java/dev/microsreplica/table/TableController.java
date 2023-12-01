@@ -1,10 +1,12 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.product.Product;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -32,6 +34,11 @@ public class TableController {
     @PutMapping("/{id}")
     public Table updateTable(@PathVariable Integer id, @RequestBody Table table){
         return this.tableService.updateTable(id, table);
+    }
+
+    @PatchMapping("/{id}/products")
+    public Table updateTableProducts(@PathVariable Integer id, @RequestBody Collection<Product> products){
+        return this.tableService.updateTable(id, products);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

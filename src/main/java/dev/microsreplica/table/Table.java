@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank
     private Integer id;
-    private List<Product> products;
+    private Collection<Product> products;
 
     public Table(){
          this.products = Collections.emptyList();
@@ -38,11 +39,11 @@ public class Table {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
+    public Collection<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Collection<Product> products) {
         this.products = products;
     }
 }

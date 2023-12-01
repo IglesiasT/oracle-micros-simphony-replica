@@ -1,11 +1,13 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.product.Product;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -23,7 +25,6 @@ public class TableService {
     }
 
     public Table saveTable(Table table) {
-        // validar que el id es mayor a 0 aca?
         return this.tableRepository.save(table);
     }
 
@@ -33,6 +34,15 @@ public class TableService {
 
         existingTable.setId(table.getId());
         existingTable.setProducts(table.getProducts());
+
+        return this.tableRepository.save(existingTable);
+    }
+
+    public Table updateTable(@NotBlank Integer id, Collection<Product> products){
+        Table existingTable = this.tableRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
+
+        existingTable.setProducts(products);
 
         return this.tableRepository.save(existingTable);
     }
