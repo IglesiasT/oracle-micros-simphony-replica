@@ -6,9 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 //@Entity
 public class Table {
@@ -19,12 +18,11 @@ public class Table {
     private Collection<Product> products;
 
     public Table(){
-         this.products = Collections.emptyList();
     }
 
     public Table(Integer id){
         this.id = id;
-        this.products = Collections.emptyList();
+        this.products = new ArrayList<>();
     }
 
     public void add(Product product){

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,12 +38,12 @@ public class TableController {
     }
 
     @PatchMapping("/{id}/products")
-    public Table updateTableProducts(@PathVariable Integer id, @RequestBody Collection<Product> products){
+    public Table updateTable(@PathVariable Integer id, @RequestBody Collection<Product> products){
         return this.tableService.updateTable(id, products);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteTable(@PathVariable Integer id){
         this.tableService.deleteTable(id);
     }

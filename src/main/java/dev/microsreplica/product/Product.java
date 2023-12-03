@@ -12,16 +12,44 @@ import org.springframework.data.annotation.Id;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotBlank (message = "Products must have an id")
     private Integer id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     @NotBlank(message = "Products must have a name")
     private String name;
 
     @PositiveOrZero
     @NotNull
-    private float price;
+    private double price;
+
+    public Product(){
+    }
+
+    public Product(Integer id, String name, double price){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
