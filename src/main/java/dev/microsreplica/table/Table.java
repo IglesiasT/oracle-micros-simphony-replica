@@ -1,6 +1,8 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
+import dev.microsreplica.product.ProductsCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
@@ -15,14 +17,14 @@ public class Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank
     private Integer id;
-    private Collection<Product> products;
+    private ProductsCollection products;
 
     public Table(){
     }
 
     public Table(Integer id){
         this.id = id;
-        this.products = new ArrayList<>();
+        this.products = new ProductsCollection();
     }
 
     public void add(Product product){
@@ -37,11 +39,19 @@ public class Table {
         this.id = id;
     }
 
-    public Collection<Product> getProducts() {
+    public ProductsCollection getProducts() {
         return products;
     }
 
-    public void setProducts(Collection<Product> products) {
+    public void setProducts(ProductsCollection products) {
         this.products = products;
+    }
+
+    public void charge(PaymentMethod paymentMethod) {
+        paymentMethod.pay(this.getFinalCost());
+    }
+
+    private double getFinalCost() {
+        return this.products.getFinalCost();
     }
 }

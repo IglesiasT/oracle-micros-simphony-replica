@@ -1,6 +1,8 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
+import dev.microsreplica.product.ProductsCollection;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +39,13 @@ public class TableController {
         return this.tableService.updateTable(id, table);
     }
 
+    @PutMapping("/{id}/payment")
+    public Table chargeTable(@PathVariable Integer id, PaymentMethod paymentMethod){
+        return this.tableService.chargeTable(id, paymentMethod);
+    }
+
     @PatchMapping("/{id}/products")
-    public Table updateTable(@PathVariable Integer id, @RequestBody Collection<Product> products){
+    public Table updateTable(@PathVariable Integer id, @RequestBody ProductsCollection products){
         return this.tableService.updateTable(id, products);
     }
 

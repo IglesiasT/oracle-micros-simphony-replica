@@ -1,6 +1,8 @@
 package dev.microsreplica.table;
 
 import dev.microsreplica.product.Product;
+import dev.microsreplica.payment.PaymentMethod;
+import dev.microsreplica.product.ProductsCollection;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +40,7 @@ public class TableService {
         return this.tableRepository.save(existingTable);
     }
 
-    public Table updateTable(@NotBlank Integer id, Collection<Product> products){
+    public Table updateTable(@NotBlank Integer id, ProductsCollection products){
         Table existingTable = this.tableRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
 
@@ -49,5 +51,13 @@ public class TableService {
 
     public void deleteTable(Integer id) {
         this.tableRepository.deleteById(id);
+    }
+
+    public Table chargeTable(Integer id, PaymentMethod paymentMethod) {
+        Table existingTable = this.tableRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
+
+        existingTable.charge(paymentMethod);
+        return this.tableRepository.save(existingTable);
     }
 }

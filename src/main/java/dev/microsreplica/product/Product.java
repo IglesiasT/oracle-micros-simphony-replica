@@ -54,4 +54,8 @@ public class Product {
     public Integer getId() {
         return id;
     }
+
+    public double getFinalCost() {
+        return this.price;
+    }
 }
