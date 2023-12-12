@@ -1,21 +1,17 @@
 package dev.microsreplica.table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
 import dev.microsreplica.product.ProductsCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 //@Entity
 public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotBlank
     private Integer id;
     private ProductsCollection products;
 
@@ -32,7 +28,7 @@ public class Table {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -40,7 +36,7 @@ public class Table {
     }
 
     public ProductsCollection getProducts() {
-        return products;
+        return this.products;
     }
 
     public void setProducts(ProductsCollection products) {
