@@ -1,5 +1,6 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.payment.PaymentMethod;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,11 @@ public class TableController {
     @PutMapping("/{id}")
     public Table updateTable(@PathVariable Integer id, @RequestBody Table table){
         return this.tableService.updateTable(id, table);
+    }
+
+    @PatchMapping("/{id}")
+    public Table chargeTable(@PathVariable Integer id, @RequestBody PaymentMethod paymentMethod){
+        return this.tableService.chargeTable(id, paymentMethod);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

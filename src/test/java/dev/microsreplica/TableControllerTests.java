@@ -8,8 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import dev.microsreplica.payment.CreditCard;
 import dev.microsreplica.table.Table;
 import dev.microsreplica.table.TableController;
 import dev.microsreplica.table.TableService;
@@ -187,6 +189,40 @@ public class TableControllerTests {
         this.mockMvc.perform(request)
                 .andExpect(status().isOk());
 
+    }
+
+    // PATCH
+    @Test
+    public void chargeValidTableReturnsOkStatus() throws Exception {
+
+        // Arrange
+        Integer id = 200;
+        CreditCard card = new CreditCard();
+        Table table = new Table(id);
+        String tableUri = rootUri + "/{id}";
+        when(this.tableService.chargeTable(id, card)).thenReturn(table);
+        String json = """
+                {
+                  "paymentMethod": {
+                    "type": "creditCard",
+                    "cardNumber": "1234-5678-9012-3456",
+                    "expirationDate": "12/24",
+                    "cvv": "123"
+                  }
+                }
+                                
+                """;
+
+        // Act
+        RequestBuilder request = patch(tableUri, id, card)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        // Assert
+        this.mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id", is(id)));
     }
 
     // DELETE

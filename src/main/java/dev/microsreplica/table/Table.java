@@ -1,5 +1,6 @@
 package dev.microsreplica.table;
 
+import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,5 +45,9 @@ public class Table {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public void charge(PaymentMethod paymentMethod) {
+        // TODO: get final cost then paymentMethod.pay()
     }
 }
