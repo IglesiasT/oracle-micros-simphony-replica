@@ -48,6 +48,17 @@ public class Table {
     }
 
     public void charge(PaymentMethod paymentMethod) {
-        // TODO: get final cost then paymentMethod.pay()
+        double finalCost = this.getProductsCost();
+        paymentMethod.pay(finalCost);
+    }
+
+    private double getProductsCost() {
+        double finalCost = 0;
+
+        for (Product product : this.products){
+            finalCost += product.getCost();
+        }
+
+        return finalCost;
     }
 }
