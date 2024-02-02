@@ -24,11 +24,10 @@ public class TableService {
     }
 
     public Table saveTable(Table table) {
-        // validar que el id es mayor a 0 aca?
         return this.tableRepository.save(table);
     }
 
-    public Table updateTable(@NotBlank Integer id, Table table){
+    public Table updateTable(Integer id, Table table){
         Table existingTable = this.tableRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
 

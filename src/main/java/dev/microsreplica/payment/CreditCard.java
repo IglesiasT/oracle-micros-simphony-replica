@@ -1,7 +1,6 @@
 package dev.microsreplica.payment;
 
 public class CreditCard implements PaymentMethod{
-    private static final String type = "creditCard";
     private String cardNumber;
     private String expirationDate;
     private Integer cvv;
@@ -9,6 +8,13 @@ public class CreditCard implements PaymentMethod{
     public CreditCard(){
 
     }
+
+    public CreditCard(String cardNumber, String expirationDate, Integer cvv) {
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
+    }
+
 
     public String getCardNumber() {
         return cardNumber;
