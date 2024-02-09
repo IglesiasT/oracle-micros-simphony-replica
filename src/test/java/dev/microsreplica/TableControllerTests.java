@@ -220,6 +220,23 @@ public class TableControllerTests {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void chargeInvalidTableReturnsBadRequest() throws Exception {
+
+        // Arrange
+        Integer invalidId = -1;
+        String tableUri = rootUri + "/{id}";
+
+        // Act
+        RequestBuilder request = patch(tableUri, invalidId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}");
+
+        // Assert
+        this.mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+
     // DELETE
     @Test
     public void deleteValidTableInRootUriDeletesTable() throws Exception {
