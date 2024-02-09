@@ -42,7 +42,7 @@ public class TableControllerTests {
 
     // GET
     @Test
-    public void getTableByValidIdReturnsTable() throws Exception {
+    public void getTableByValidIdReturnsOkStatus() throws Exception {
 
         // Arrange
         Integer id = 1;
@@ -61,7 +61,7 @@ public class TableControllerTests {
     }
 
     @Test
-    public void getRootUriGetsAllTables() throws Exception {
+    public void getRootUriReturnsOkStatus() throws Exception {
 
         // Arrange
         List<Table> tables = Arrays.asList(
@@ -100,7 +100,7 @@ public class TableControllerTests {
 
     // POST
     @Test
-    public void postValidTableInRootUriSavesTable() throws Exception {
+    public void postValidTableInRootUriReturnsCreatedStatus() throws Exception {
 
         // Arrange
         Table table = new Table(1);
@@ -167,7 +167,7 @@ public class TableControllerTests {
 
     // PUT
     @Test
-    public void putValidTableInRootUriUpdatesTable() throws Exception {
+    public void putValidTableInRootUriReturnsOkStatus() throws Exception {
 
         // Arrange
         Table updated = new Table(5);
