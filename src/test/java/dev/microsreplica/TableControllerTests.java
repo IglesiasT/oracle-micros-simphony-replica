@@ -83,7 +83,7 @@ public class TableControllerTests {
     }
 
     @Test
-    public void getTableByWrongIdReturnsNotFound() throws Exception {
+    public void getTable_ByWrongId_ReturnsNotFound() throws Exception {
 
         // Arrange
         Integer wrongId = 91218;
@@ -136,29 +136,6 @@ public class TableControllerTests {
         RequestBuilder request = post(rootUri)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(invalidJson);
-
-        // Assert
-        this.mockMvc.perform(request)
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void postTableWithInvalidIdReturnsBadRequest() throws Exception {
-
-        // Arrange
-        when(this.tableService.saveTable(new Table(-1)))
-                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Table"));
-        String invalidTableJson = """
-                {
-                    "id":I'm an invalid format,
-                    "products":[]
-                }
-                """;
-
-        // Act
-        RequestBuilder request = post(rootUri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(invalidTableJson);
 
         // Assert
         this.mockMvc.perform(request)

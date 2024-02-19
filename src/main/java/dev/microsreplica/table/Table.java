@@ -5,6 +5,8 @@ import dev.microsreplica.product.Product;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.data.annotation.Id;
 
 import java.util.Collections;
@@ -14,7 +16,8 @@ import java.util.List;
 public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotBlank
+    @NotNull
+    @Positive
     private Integer id;
     private List<Product> products;
 

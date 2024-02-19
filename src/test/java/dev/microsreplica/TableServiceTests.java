@@ -70,4 +70,6 @@ public class TableServiceTests {
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode(), "Unexpected HTTP status");
         assertTrue(exception.getMessage().contains(expectedMessage), "Exception message does not contain expected text");
     }
+
+    //TODO save with negative id throws bad request
 }

@@ -18,12 +18,13 @@ public class TableService {
         return this.tableRepository.findAll();
     }
 
-    public Table getById(@NotBlank Integer id){
+    public Table getById(Integer id){
         return this.tableRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
     }
 
     public Table saveTable(Table table) {
+        // TODO validate table before save
         return this.tableRepository.save(table);
     }
 
