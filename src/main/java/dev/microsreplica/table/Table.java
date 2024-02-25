@@ -2,23 +2,28 @@ package dev.microsreplica.table;
 
 import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.data.annotation.Id;
 
 import java.util.Collections;
 import java.util.List;
 
-//@Entity
+@Entity
+@jakarta.persistence.Table(name = "tables")
 public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Positive
     private Integer id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_by_table",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "table_id", referencedColumnName = "id")
+    )
     private List<Product> products;
 
     public Table(){
@@ -59,7 +64,7 @@ public class Table {
         double finalCost = 0;
 
         for (Product product : this.products){
-            finalCost += product.getCost();
+            finalCost += product.getPrice();
         }
 
         return finalCost;
