@@ -170,7 +170,7 @@ public class TableControllerTests {
 
     // PATCH
     @Test
-    public void chargeValidTableReturnsOkStatus() throws Exception {
+    public void patch_ValidTable_ReturnsOkStatus() throws Exception {
 
         // Arrange
         Integer id = 200;

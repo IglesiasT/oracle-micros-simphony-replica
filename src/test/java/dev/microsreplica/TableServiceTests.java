@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,9 +68,19 @@ public class TableServiceTests {
 
         // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> tableService.getById(nonExistentId));
-        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode(), "Unexpected HTTP status");
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode(), "Expected NOT_FOUND status");
         assertTrue(exception.getMessage().contains(expectedMessage), "Exception message does not contain expected text");
     }
 
-    //TODO save with negative id throws bad request
+    @Test
+    public void testSaveTable_WithNegativeId_ThrowsBadRequest(){
+        // Arrange
+        Table table = new Table(-1);
+        String expectedMessage = "Table ID can not be negative or zero";
+
+        // Act & Assert
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> tableService.saveTable(table));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode(), "Expected BAD_REQUEST status");
+        assertTrue(exception.getMessage().contains(expectedMessage), "Exception message does not contain expected text");
+    }
 }

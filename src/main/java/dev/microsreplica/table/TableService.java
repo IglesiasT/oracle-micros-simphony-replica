@@ -24,7 +24,9 @@ public class TableService {
     }
 
     public Table saveTable(Table table) {
-        // TODO validate table before save
+        if (table.getId() < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Table ID can not be negative or zero");
+        }
         return this.tableRepository.save(table);
     }
 
