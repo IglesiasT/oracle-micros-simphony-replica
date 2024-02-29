@@ -21,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,34 +29,32 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebMvcTest(TableController.class)
-@WithMockUser
 public class TableControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private TableService tableService;
-    private static final String rootUri = "/api/tables";
+    private static final String rootUri = "/tables";
 
 
     // GET
     @Test
-    public void getTableByValidIdReturnsOkStatus() throws Exception {
+    public void getTable_ByValidId_ReturnsOkStatus() throws Exception {
 
         // Arrange
-        Integer id = 1;
-        Table table = new Table(id);
+        Integer validId = 1;
         String tableUri = rootUri + "/{id}";
-        when(this.tableService.getById(id)).thenReturn(table);
+        when(this.tableService.getById(validId)).thenReturn(new Table(validId));
 
         // Act
-        RequestBuilder request = get(tableUri, id).accept(MediaType.APPLICATION_JSON);
+        RequestBuilder request = get(tableUri, validId).accept(MediaType.APPLICATION_JSON);
 
         // Assert
         this.mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(id)));
+                .andExpect(jsonPath("$.id", is(validId)));
     }
 
     @Test

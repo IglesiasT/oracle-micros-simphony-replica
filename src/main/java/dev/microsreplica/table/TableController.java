@@ -2,7 +2,6 @@ package dev.microsreplica.table;
 
 import dev.microsreplica.payment.PaymentMethod;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +10,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/tables")
 public class TableController {
-    @Autowired
-    TableService tableService;
+    private final TableService tableService;
+
+
+    public TableController(TableService tableService){
+        this.tableService = tableService;
+    }
 
     @GetMapping("")
     public List<Table> getAllTables(){
