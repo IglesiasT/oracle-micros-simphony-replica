@@ -1,8 +1,6 @@
 package dev.microsreplica.table;
 
 import dev.microsreplica.payment.PaymentMethod;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,8 +9,11 @@ import java.util.List;
 
 @Service
 public class TableService {
-    @Autowired
-    private TableRepository tableRepository;
+    private final TableRepository tableRepository;
+
+    public TableService(TableRepository tableRepository){
+        this.tableRepository = tableRepository;
+    }
 
     public List<Table> getAllTables(){
         return this.tableRepository.findAll();

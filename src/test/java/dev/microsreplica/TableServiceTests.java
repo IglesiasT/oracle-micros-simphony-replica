@@ -3,9 +3,9 @@ package dev.microsreplica;
 import dev.microsreplica.table.Table;
 import dev.microsreplica.table.TableRepository;
 import dev.microsreplica.table.TableService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,15 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TableServiceTests {
-
     @Mock
     private TableRepository tableRepository;
 
-    @InjectMocks
     private TableService tableService;
+
+    @BeforeEach
+    public void setUp(){
+        this.tableService = new TableService(this.tableRepository);
+    }
 
     @Test
     public void testGetAllTables_ReturnsAllTables() {
