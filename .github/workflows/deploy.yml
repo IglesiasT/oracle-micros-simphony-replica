@@ -21,7 +21,7 @@ jobs:
         run: mvn clean package
 
       - name: Change to docker directory
-        run: cd docker
+        run: cd docker/
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
