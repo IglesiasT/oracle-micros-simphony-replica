@@ -27,4 +27,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: latest
-          dockerfile: ./docker/Dockerfile
+          dockerfile: ./docker/Dockerfile.ci
