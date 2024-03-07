@@ -1,5 +1,5 @@
 FROM maven:3.8.5-openjdk-17 as base
-WORKDIR /app
+WORKDIR /oracle-micros-simphony-replica
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
