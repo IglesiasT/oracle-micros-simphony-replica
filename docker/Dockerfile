@@ -1,4 +1,4 @@
-FROM maven:4.0.0-jdk-17 as base
+FROM maven:3.8.5-openjdk-17 as base
 WORKDIR /app
 
 COPY .mvn/ .mvn
