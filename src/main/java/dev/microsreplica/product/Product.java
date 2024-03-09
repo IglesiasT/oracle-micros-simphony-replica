@@ -1,11 +1,12 @@
 package dev.microsreplica.product;
 
+import dev.microsreplica.payment.Priceable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Priceable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +19,13 @@ public class Product {
     private String name;
 
     public Product() {
-        this.price = 0;
+        this.price = 0.0;
         this.name = "noName";
+    }
+
+    public Product(String name, double price) {
+        this.price = price;
+        this.name = name;
     }
 
     public double getPrice(){
@@ -36,5 +42,10 @@ public class Product {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public double getFinalPrice() {
+        return this.getPrice();
     }
 }

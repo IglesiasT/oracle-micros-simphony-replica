@@ -1,6 +1,5 @@
 package dev.microsreplica.table;
 
-import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -47,7 +46,7 @@ public class Table {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getAllPriceableItems() {
         return products;
     }
 
@@ -55,18 +54,4 @@ public class Table {
         this.products = products;
     }
 
-    public void charge(PaymentMethod paymentMethod) {
-        double finalCost = this.getProductsCost();
-        paymentMethod.pay(finalCost);
-    }
-
-    private double getProductsCost() {
-        double finalCost = 0;
-
-        for (Product product : this.products){
-            finalCost += product.getPrice();
-        }
-
-        return finalCost;
-    }
 }

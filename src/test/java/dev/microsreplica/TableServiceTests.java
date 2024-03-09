@@ -1,5 +1,7 @@
 package dev.microsreplica;
 
+import dev.microsreplica.payment.Cash;
+import dev.microsreplica.product.Product;
 import dev.microsreplica.table.Table;
 import dev.microsreplica.table.TableRepository;
 import dev.microsreplica.table.TableService;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TableServiceTests {
@@ -84,5 +86,26 @@ public class TableServiceTests {
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> tableService.saveTable(table));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode(), "Expected BAD_REQUEST status");
         assertTrue(exception.getMessage().contains(expectedMessage), "Exception message does not contain expected text");
+    }
+
+    @Test
+    public void testChargeTable_WithCorrectIdAndEnoughCash_ReturnsTableWithoutItems(){
+        // Arrange
+        Table tableWithItems = new Table(1);
+        Cash cash = new Cash(3000);
+        List<Product> products = List.of(
+                new Product("Product A", 10),
+                new Product("Product B", 16),
+                new Product("Product C", 4)
+        );
+        when(this.tableRepository.findById(1)).thenReturn(Optional.of(tableWithItems));
+
+        // Act
+        tableWithItems.setProducts(products);
+        this.tableService.chargeTable(1, cash);
+
+        // Assert
+        verify(this.tableRepository, times(1)).findById(1);
+        assertTrue(tableWithItems.getAllPriceableItems().isEmpty());
     }
 }
