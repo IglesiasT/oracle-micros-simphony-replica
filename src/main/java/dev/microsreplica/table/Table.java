@@ -46,7 +46,7 @@ public class Table {
         this.id = id;
     }
 
-    public List<Product> getAllPriceableItems() {
+    public List<Product> getProducts() {
         return products;
     }
 

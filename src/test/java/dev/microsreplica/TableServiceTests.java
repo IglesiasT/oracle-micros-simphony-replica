@@ -106,6 +106,6 @@ public class TableServiceTests {
 
         // Assert
         verify(this.tableRepository, times(1)).findById(1);
-        assertTrue(tableWithItems.getAllPriceableItems().isEmpty());
+        assertTrue(tableWithItems.getProducts().isEmpty());
     }
 }
