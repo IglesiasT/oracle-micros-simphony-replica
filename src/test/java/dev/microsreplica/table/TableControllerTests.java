@@ -1,4 +1,4 @@
-package dev.microsreplica;
+package dev.microsreplica.table;
 
 
 import static org.hamcrest.Matchers.hasSize;
@@ -12,9 +12,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import dev.microsreplica.payment.CreditCard;
-import dev.microsreplica.table.Table;
-import dev.microsreplica.table.TableController;
-import dev.microsreplica.table.TableService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

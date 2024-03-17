@@ -1,10 +1,7 @@
-package dev.microsreplica;
+package dev.microsreplica.table;
 
 import dev.microsreplica.payment.Cash;
 import dev.microsreplica.product.Product;
-import dev.microsreplica.table.Table;
-import dev.microsreplica.table.TableRepository;
-import dev.microsreplica.table.TableService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
