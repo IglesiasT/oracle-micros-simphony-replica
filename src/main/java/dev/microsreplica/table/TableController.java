@@ -38,11 +38,6 @@ public class TableController {
         return this.tableService.updateTable(id, table);
     }
 
-    @PatchMapping("/{id}")
-    public Table chargeTable(@PathVariable Integer id, @RequestBody PaymentMethod paymentMethod){
-        return this.tableService.chargeTable(id, paymentMethod);
-    }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void deleteTable(@PathVariable Integer id){

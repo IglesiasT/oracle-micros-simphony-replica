@@ -1,13 +1,9 @@
 package dev.microsreplica.table;
 
-import dev.microsreplica.payment.PaymentMethod;
-import dev.microsreplica.payment.Priceable;
-import dev.microsreplica.product.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -39,7 +35,6 @@ public class TableService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
 
         existingTable.setId(table.getId());
-        existingTable.setProducts(table.getProducts());
 
         return this.tableRepository.save(existingTable);
     }
@@ -48,18 +43,4 @@ public class TableService {
         this.tableRepository.deleteById(id);
     }
 
-    public Table chargeTable(Integer id, PaymentMethod paymentMethod) {
-        Table tableToCharge = this.tableRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
-        double finalCost = 0.0;
-        List<Product> itemsToCharge = tableToCharge.getProducts();
-
-        for (Priceable item : itemsToCharge){
-            finalCost += item.getFinalPrice();
-        }
-        paymentMethod.pay(finalCost);
-        tableToCharge.setProducts(Collections.emptyList());
-
-        return this.tableRepository.save(tableToCharge);
-    }
 }
