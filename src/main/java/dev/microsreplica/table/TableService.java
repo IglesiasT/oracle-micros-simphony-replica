@@ -18,7 +18,7 @@ public class TableService {
         return this.tableRepository.findAll();
     }
 
-    public Table getById(Integer id){
+    public Table getById(Long id){
         return this.tableRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
     }
@@ -30,7 +30,7 @@ public class TableService {
         return this.tableRepository.save(table);
     }
 
-    public Table updateTable(Integer id, Table table){
+    public Table updateTable(Long id, Table table){
         Table existingTable = this.tableRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
 
@@ -39,7 +39,7 @@ public class TableService {
         return this.tableRepository.save(existingTable);
     }
 
-    public void deleteTable(Integer id) {
+    public void deleteTable(Long id) {
         this.tableRepository.deleteById(id);
     }
 

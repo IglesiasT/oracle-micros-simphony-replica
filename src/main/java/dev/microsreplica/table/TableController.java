@@ -1,6 +1,5 @@
 package dev.microsreplica.table;
 
-import dev.microsreplica.payment.PaymentMethod;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class TableController {
     }
 
     @GetMapping("/{id}")
-    public Table getById(@PathVariable Integer id){
+    public Table getById(@PathVariable Long id){
         return this.tableService.getById(id);
     }
 
@@ -34,13 +33,13 @@ public class TableController {
     }
 
     @PutMapping("/{id}")
-    public Table updateTable(@PathVariable Integer id, @RequestBody Table table){
+    public Table updateTable(@PathVariable Long id, @RequestBody Table table){
         return this.tableService.updateTable(id, table);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
-    public void deleteTable(@PathVariable Integer id){
+    public void deleteTable(@PathVariable Long id){
         this.tableService.deleteTable(id);
     }
 }

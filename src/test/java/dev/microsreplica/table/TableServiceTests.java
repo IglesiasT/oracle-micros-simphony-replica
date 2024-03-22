@@ -1,8 +1,6 @@
 package dev.microsreplica.table;
 
-import dev.microsreplica.order.OrderService;
-import dev.microsreplica.payment.Cash;
-import dev.microsreplica.product.Product;
+import dev.microsreplica.order.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,8 +32,8 @@ public class TableServiceTests {
     public void testGetAllTables_ReturnsAllTables() {
         // Arrange
         List<Table> expectedTables = new ArrayList<>();
-        expectedTables.add(new Table(1));
-        expectedTables.add(new Table(2));
+        expectedTables.add(new Table(1L, mock(Order.class)));
+        expectedTables.add(new Table(2L, mock(Order.class)));
         when(this.tableRepository.findAll()).thenReturn(expectedTables);
 
         // Act
@@ -50,8 +48,8 @@ public class TableServiceTests {
     @Test
     public void testGetById_WithValidId_ReturnsTable() {
         // Arrange
-        Integer id = 1;
-        Table expectedTable = new Table(id);
+        Long id = 1L;
+        Table expectedTable = new Table(id, mock(Order.class));
         when(this.tableRepository.findById(id)).thenReturn(Optional.of(expectedTable));
 
         // Act
@@ -64,7 +62,7 @@ public class TableServiceTests {
     @Test
     public void testGetById_WithNonexistentId_ThrowsNotFoundException() {
         // Arrange
-        Integer nonExistentId = -1;
+        Long nonExistentId = -1L;
         String expectedMessage = "Table not found";
         when(tableRepository.findById(nonExistentId)).thenReturn(java.util.Optional.empty());
 
@@ -77,33 +75,12 @@ public class TableServiceTests {
     @Test
     public void testSaveTable_WithNegativeId_ThrowsBadRequest(){
         // Arrange
-        Table table = new Table(-1);
+        Table table = new Table(-1L, mock(Order.class));
         String expectedMessage = "Table ID can not be negative or zero";
 
         // Act & Assert
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> tableService.saveTable(table));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode(), "Expected BAD_REQUEST status");
         assertTrue(exception.getMessage().contains(expectedMessage), "Exception message does not contain expected text");
-    }
-
-    @Test
-    public void testChargeTable_WithCorrectIdAndEnoughCash_ReturnsTableWithoutItems(){
-        // Arrange
-        Table tableWithItems = new Table(1);
-        Cash cash = new Cash(3000);
-        List<Product> products = List.of(
-                new Product("Product A", 10),
-                new Product("Product B", 16),
-                new Product("Product C", 4)
-        );
-        when(this.tableRepository.findById(1)).thenReturn(Optional.of(tableWithItems));
-
-        // Act
-        tableWithItems.setProducts(products);
-        this.tableService.chargeTable(1, cash);
-
-        // Assert
-        verify(this.tableRepository, times(1)).findById(1);
-        assertTrue(tableWithItems.getProducts().isEmpty());
     }
 }
