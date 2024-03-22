@@ -23,10 +23,10 @@ public class OrderService{
         Order orderToCharge = this.orderRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The order with this id doesn't exits"));
 
-        List<Product> itemsToCharge = orderToCharge.getProducts();
+        List<Product> productsToCharge = orderToCharge.getProducts();
 
-        for (Priceable item : itemsToCharge){
-            finalCost += item.getFinalPrice();
+        for (Priceable product : productsToCharge){
+            finalCost += product.getFinalPrice();
         }
         paymentMethod.pay(finalCost);   // TODO catch pay errors and don't clean the products if the order wasn't pay
 
