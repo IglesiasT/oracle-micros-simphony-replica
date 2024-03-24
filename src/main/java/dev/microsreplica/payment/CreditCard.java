@@ -1,15 +1,22 @@
 package dev.microsreplica.payment;
 
-public class CreditCard implements PaymentMethod{
+import dev.microsreplica.payment.discount.Discount;
+import dev.microsreplica.payment.discount.NoDiscount;
+
+public class CreditCard extends PaymentMethod {
     private String cardNumber;
     private String expirationDate;
     private Integer cvv;
 
     public CreditCard(){
-
+        this.discount = new NoDiscount();
+        this.cardNumber = "No card number";
+        this.expirationDate = "No expiration date";
+        this.cvv = 0;
     }
 
-    public CreditCard(String cardNumber, String expirationDate, Integer cvv) {
+    public CreditCard(Discount discount, String cardNumber, String expirationDate, Integer cvv) {
+        this.discount = discount;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cvv = cvv;
@@ -42,6 +49,8 @@ public class CreditCard implements PaymentMethod{
 
     @Override
     public void pay(double mount) {
-
+        System.out.println("Paying " + mount + " with credit card");
+        this.discount.apply(mount);
+        System.out.println("Successfully paid " + mount + " with credit card");
     }
 }
