@@ -28,7 +28,7 @@ public class OrderService{
         for (Priceable product : productsToCharge){
             finalCost += product.getFinalPrice();
         }
-        paymentMethod.pay(finalCost);   // TODO catch pay errors and don't clean the products if the order wasn't pay
+        paymentMethod.pay(finalCost);
 
         orderToCharge.setProducts(Collections.emptyList());
     }
