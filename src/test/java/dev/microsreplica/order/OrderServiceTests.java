@@ -1,4 +1,4 @@
-package order;
+package dev.microsreplica.order;
 
 import dev.microsreplica.order.Order;
 import dev.microsreplica.order.OrderRepository;
