@@ -1,5 +1,6 @@
 package dev.microsreplica.combo;
 
+import dev.microsreplica.payment.Priceable;
 import dev.microsreplica.product.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "combos")
-public class Combo {
+public class Combo implements Priceable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
