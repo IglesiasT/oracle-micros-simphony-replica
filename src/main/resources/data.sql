@@ -2,4 +2,5 @@ INSERT INTO roles (authority)
 VALUES
     ('USER'),
     ('EDITOR'),
-    ('ADMIN');
+    ('ADMIN')
+ON CONFLICT (authority) DO NOTHING;
