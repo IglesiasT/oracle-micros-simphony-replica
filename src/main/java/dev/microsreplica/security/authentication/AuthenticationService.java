@@ -41,7 +41,7 @@ public class AuthenticationService {
 
         authorities.add(role);
 
-        return userRepository.save(new ApplicationUser(1L, authorities, username, encodedPassword));
+        return userRepository.save(new ApplicationUser(authorities, username, encodedPassword));
     }
 
     public LoginResponseDTO loginUser(String username, String password) {
