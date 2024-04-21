@@ -2,6 +2,7 @@ package dev.microsreplica.table;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class TableController {
         return this.tableService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public Table addTable(@RequestBody @Valid Table table){
@@ -37,6 +39,7 @@ public class TableController {
         return this.tableService.updateTable(id, table);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void deleteTable(@PathVariable Long id){
