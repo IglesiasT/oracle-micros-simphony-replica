@@ -64,7 +64,7 @@ public class SecurityConfig {
                                     .requestMatchers("/auth/register").permitAll()
                                     .requestMatchers("/auth/login").permitAll()
                                     .requestMatchers("/auth/logout").permitAll()
-                                    .requestMatchers("/auth/**").authenticated();
+                                    .requestMatchers("/admin/**").hasRole("ADMIN");
                             authorizeRequests.anyRequest().authenticated();
                         }
                 )
