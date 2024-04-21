@@ -32,4 +32,17 @@ public class OrderService{
 
         orderToCharge.setProducts(Collections.emptyList());
     }
+
+    public Order saveOrder(Order order){
+        return this.orderRepository.save(order);
+    }
+
+    public Order getById(Long id) {
+        return this.orderRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The order with this id doesn't exits"));
+    }
+
+    public void deleteOrder(Long id) {
+        this.orderRepository.deleteById(id);
+    }
 }
