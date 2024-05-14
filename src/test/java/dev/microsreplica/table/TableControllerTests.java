@@ -13,10 +13,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import dev.microsreplica.order.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebMvcTest(TableController.class)
+@WithMockUser(username = "admin", roles = {"ADMIN"})
+@AutoConfigureMockMvc(addFilters = false)   // Disable all filters from SecurityFilterChain
 public class TableControllerTests {
 
     @Autowired
@@ -92,7 +96,7 @@ public class TableControllerTests {
 
     // POST
     @Test
-    public void postValidTableInRootUriReturnsCreatedStatus() throws Exception {
+    public void postValidTable_InRootUri_ReturnsCreatedStatus() throws Exception {
 
         // Arrange
         Table table = new Table(1L, mock(Order.class));
