@@ -36,7 +36,7 @@ public class AuthenticationService {
 
     public ApplicationUser registerUser(String username, String password) {
         String encodedPassword = passwordEncoder.encode(password);
-        Role role = this.roleRepository.findByAuthority("USER");
+        Role role = this.roleRepository.findByAuthority("USER");    // Default role for new users
         Set<Role> authorities = new HashSet<>();
 
         authorities.add(role);
