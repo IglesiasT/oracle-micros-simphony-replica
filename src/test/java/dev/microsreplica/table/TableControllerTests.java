@@ -57,7 +57,7 @@ public class TableControllerTests {
     }
 
     @Test
-    public void getRootUriReturnsOkStatus() throws Exception {
+    public void getRootUri_ReturnsOkStatus() throws Exception {
 
         // Arrange
         List<Table> tables = Arrays.asList(
@@ -119,7 +119,7 @@ public class TableControllerTests {
     }
 
     @Test
-    public void postInvalidJsonInRootUriReturnsBadRequest() throws Exception {
+    public void postInvalidJson_InRootUri_ReturnsBadRequest() throws Exception {
 
         // Arrange
         String invalidJson = """
@@ -140,7 +140,7 @@ public class TableControllerTests {
 
     // PUT
     @Test
-    public void putValidTableInRootUriReturnsOkStatus() throws Exception {
+    public void putValidTable_InRootUri_ReturnsOkStatus() throws Exception {
 
         // Arrange
         Table updated = new Table(5L, mock(Order.class));
@@ -166,7 +166,7 @@ public class TableControllerTests {
 
     // DELETE
     @Test
-    public void deleteValidTableInRootUriDeletesTable() throws Exception {
+    public void deleteValidTable_InRootUri_DeletesTable() throws Exception {
 
         // Arrange
         doNothing().when(this.tableService).deleteTable(100L);

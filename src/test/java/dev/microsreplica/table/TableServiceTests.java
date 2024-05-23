@@ -29,7 +29,7 @@ public class TableServiceTests {
     }
 
     @Test
-    public void testGetAllTables_ReturnsAllTables() {
+    public void getAllTables_ReturnsAllTables() {
         // Arrange
         List<Table> expectedTables = new ArrayList<>();
         expectedTables.add(new Table(1L, mock(Order.class)));
@@ -46,7 +46,7 @@ public class TableServiceTests {
     }
 
     @Test
-    public void testGetById_WithValidId_ReturnsTable() {
+    public void getById_WithValidId_ReturnsTable() {
         // Arrange
         Long id = 1L;
         Table expectedTable = new Table(id, mock(Order.class));
@@ -60,7 +60,7 @@ public class TableServiceTests {
     }
 
     @Test
-    public void testGetById_WithNonexistentId_ThrowsNotFoundException() {
+    public void getById_WithNonexistentId_ThrowsNotFoundException() {
         // Arrange
         Long nonExistentId = -1L;
         String expectedMessage = "Table not found";
@@ -73,7 +73,7 @@ public class TableServiceTests {
     }
 
     @Test
-    public void testSaveTable_WithNegativeId_ThrowsBadRequest(){
+    public void saveTable_WithNegativeId_ThrowsBadRequest(){
         // Arrange
         Table table = new Table(-1L, mock(Order.class));
         String expectedMessage = "Table ID can not be negative or zero";

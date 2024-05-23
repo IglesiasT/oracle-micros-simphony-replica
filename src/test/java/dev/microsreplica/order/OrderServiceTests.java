@@ -1,8 +1,5 @@
 package dev.microsreplica.order;
 
-import dev.microsreplica.order.Order;
-import dev.microsreplica.order.OrderRepository;
-import dev.microsreplica.order.OrderService;
 import dev.microsreplica.payment.PaymentMethod;
 import dev.microsreplica.product.Product;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +30,7 @@ public class OrderServiceTests {
     }
 
     @Test
-    public void testChargeOrder_WithCorrectIdAndEnoughCash_ReturnsOrderWithNoProducts(){
+    public void chargeOrder_WithCorrectIdAndEnoughCash_ReturnsOrderWithNoProducts(){
         // Arrange
         Order orderWithProducts = mock(Order.class);
         PaymentMethod paymentMethod = mock(PaymentMethod.class);
@@ -55,7 +52,7 @@ public class OrderServiceTests {
 
 
     @Test
-    public void testChargeOrder_WithNonexistentId_ThrowsNotFoundException() {
+    public void chargeOrder_WithNonexistentId_ThrowsNotFoundException() {
         // Arrange
         PaymentMethod paymentMethod = mock(PaymentMethod.class);
         Long nonexistentId = -1L;

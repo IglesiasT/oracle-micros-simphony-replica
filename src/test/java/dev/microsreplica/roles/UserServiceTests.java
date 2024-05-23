@@ -32,7 +32,7 @@ public class UserServiceTests {
     }
 
     @Test
-    void testLoadUserByUsername_WithExistentUser_ReturnsUserDetails() {
+    void loadUserByUsername_WithExistentUser_ReturnsUserDetails() {
         // Arrange
         String username = "testUser";
         String password = this.passwordEncoder.encode("password");
@@ -50,7 +50,7 @@ public class UserServiceTests {
     }
 
     @Test
-    void testLoadUserByUsername_WithNonExistentUser_ThrowsUsernameNotFoundException() {
+    void loadUserByUsername_WithNonExistentUser_ThrowsUsernameNotFoundException() {
         // Arrange
         String nonExistingUsername = "nonExistingUser";
         when(userRepository.findByUsername(nonExistingUsername)).thenReturn(Optional.empty());

@@ -61,7 +61,7 @@ public class AuthenticationControllerTests {
 
     @Test
     @WithMockUser(username = "user", roles = {"USER"})
-    public void someAdminOnlyEndpoint_WithUserAuthentication_ShouldFail() throws Exception {
+    public void someAdminOnlyEndpoint_WithUserAuthentication_ShouldBeForbidden() throws Exception {
         mockMvc.perform(post("/admin/some-endpoint")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
