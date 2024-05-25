@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +49,8 @@ public class AuthenticationService {
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             String token = tokenService.generateJwtToken(auth);
-            return new LoginResponseDTO(this.userRepository.findByUsername(username).get(), token);
+            return new LoginResponseDTO(this.userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found")), token);
 
         } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, "");
