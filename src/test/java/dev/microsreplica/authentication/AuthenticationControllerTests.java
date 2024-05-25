@@ -43,8 +43,10 @@ public class AuthenticationControllerTests {
 
     @Test
     public void loginUser_WithoutAuthentication_ShouldSucceed() throws Exception {
+        // Arrange
         String userJson = "{\"username\": \"testUser\", \"password\": \"testPassword\"}";
 
+        // Act & Assert
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson))
